@@ -1,0 +1,15 @@
+MERGE INTO product (id, name, price) VALUES (1, 'Laptop', 899.99);
+MERGE INTO product (id, name, price) VALUES (2, 'Smartphone', 499.50);
+MERGE INTO product (id, name, price) VALUES (3, 'Tablet', 299.99);
+MERGE INTO product (id, name, price) VALUES (4, 'Headphones', 79.99);
+MERGE INTO product (id, name, price) VALUES (5, 'Smartwatch', 199.99);
+MERGE INTO product (id, name, price) VALUES (6, 'Keyboard', 49.99);
+MERGE INTO product (id, name, price) VALUES (7, 'Mouse', 29.99);
+MERGE INTO product (id, name, price) VALUES (8, 'Monitor', 169.50);
+MERGE INTO product (id, name, price) VALUES (9, 'External Hard Drive', 120.00);
+MERGE INTO product (id, name, price) VALUES (10, 'Webcam', 39.99);
+MERGE INTO product (id, name, price) VALUES (11, 'Speakers', 59.99);
+MERGE INTO product (id, name, price) VALUES (12, 'Desk Lamp', 29.50);
+MERGE INTO product (id, name, price) VALUES (13, 'Phone Case', 19.99);
+MERGE INTO product (id, name, price) VALUES (14, 'USB Flash Drive', 12.99);
+MERGE INTO product (id, name, price) VALUES (15, 'Bluetooth Adapter', 15.99);
