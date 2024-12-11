@@ -1,0 +1,1 @@
+MERGE INTO error_setter (id, is_delayed, start) VALUES (1, false, null);
