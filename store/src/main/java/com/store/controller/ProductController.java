@@ -5,16 +5,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.store.model.Product;
 import com.store.service.ProductService;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
+@RequestMapping("product")
 public class ProductController {
-
-    private final Random random = new Random();
 
     private final ProductService service;
 
@@ -22,7 +22,7 @@ public class ProductController {
         this.service = service;
     }
 
-    @GetMapping("product/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Product> getById(@PathVariable Long id) throws InterruptedException {
 
         if (shouldSimulateFailure(0.2)) {
@@ -35,7 +35,7 @@ public class ProductController {
     }
 
     private boolean shouldSimulateFailure(double probability) {
-        return random.nextDouble() < probability;
+        return ThreadLocalRandom.current().nextDouble() <= probability;
     }
 
 }
