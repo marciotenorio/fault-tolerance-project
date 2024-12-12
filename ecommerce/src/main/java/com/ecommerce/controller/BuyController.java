@@ -19,7 +19,7 @@ public class BuyController {
 
     @PostMapping("buy")
     public ResponseEntity<String> buy(@RequestParam Long product, @RequestParam Long user, @RequestParam boolean ft) {
-        return ResponseEntity.ok(service.buy(product));
+        return ResponseEntity.ok(service.buy(product, user, ft));
     }
 
 }

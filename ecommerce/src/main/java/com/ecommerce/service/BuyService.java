@@ -14,12 +14,19 @@ public class BuyService {
         this.storeClient = storeClient;
     }
 
-    public String buy(Long productId) {
+    public String buy(Long productId, Long user, boolean ft) {
 
+        // Request 1
         Product product = storeClient.getById(productId);
 
-        // TODO: retonar identificador aleatório da transação
-        return null;
+        // todo: Request 2
+
+        // Request 3
+        String transactionId = storeClient.sell(product.getId());
+
+        // todo: Request 4
+
+        return transactionId;
     }
 
 }
