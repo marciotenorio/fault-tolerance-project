@@ -1,0 +1,113 @@
+networks:
+  ecommerce-network:
+    name: ecommerce
+
+services:
+  ecommerce:
+    container_name: ecommerce
+    build: ecommerce/.
+    ports:
+      - 8080:8080
+    networks:
+      - ecommerce-network
+    environment:
+      TZ: "America/Fortaleza"
+    restart: always
+    healthcheck:
+      # test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/swagger-ui.html"]
+      interval: 10s
+      timeout: 3s
+      retries: 60
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 4G
+
+  store:
+    container_name: store
+    build: store/.
+    ports:
+      - 8081:8081
+    networks:
+      - ecommerce-network
+    environment:
+      TZ: "America/Fortaleza"
+    restart: always
+    healthcheck:
+      # test: ["CMD", "curl", "-f", "http://127.0.0.1:8081/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8081/swagger-ui.html"]
+      interval: 10s
+      timeout: 3s
+      retries: 60
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 4G
+
+  exchange:
+    container_name: exchange
+    build: exchange/.
+    ports:
+      - 8082:8082
+    networks:
+      - ecommerce-network
+    environment:
+      TZ: "America/Fortaleza"
+    restart: always
+    healthcheck:
+      # test: ["CMD", "curl", "-f", "http://127.0.0.1:8082/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8082/swagger-ui.html"]
+      interval: 10s
+      timeout: 3s
+      retries: 60
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 4G
+  exchange2:
+    container_name: exchange-2
+    build: exchange/.
+    ports:
+      - 8084:8082
+    networks:
+      - ecommerce-network
+    environment:
+      TZ: "America/Fortaleza"
+    restart: always
+    healthcheck:
+      # test: ["CMD", "curl", "-f", "http://127.0.0.1:8082/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8082/swagger-ui.html"]
+      interval: 10s
+      timeout: 3s
+      retries: 60
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 4G
+
+  fidelity:
+    container_name: fidelity
+    build: fidelity/.
+    ports:
+      - 8083:8083
+    networks:
+      - ecommerce-network
+    environment:
+      TZ: "America/Fortaleza"
+    restart: always
+    healthcheck:
+      # test: ["CMD", "curl", "-f", "http://127.0.0.1:8083/actuator/health"]
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8083/swagger-ui.html"]
+      interval: 10s
+      timeout: 3s
+      retries: 60
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 4G
