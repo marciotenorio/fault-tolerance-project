@@ -14,8 +14,22 @@ public class BuyService {
         this.storeClient = storeClient;
     }
 
-    public String buy(Long productId, Long user, boolean ft) {
+    public String buyFtEnabled(Long productId, Long user) {
 
+        // Request 1
+        Product product = storeClient.getById(productId);
+
+        // todo: Request 2
+
+        // Request 3
+        String transactionId = storeClient.sell(product.getId());
+
+        // todo: Request 4
+
+        return transactionId;
+    }
+
+    public String buyFtDisabled(Long productId, Long user) {
         // Request 1
         Product product = storeClient.getById(productId);
 

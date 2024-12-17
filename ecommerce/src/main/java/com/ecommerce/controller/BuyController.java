@@ -1,5 +1,6 @@
 package com.ecommerce.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecommerce.service.BuyService;
@@ -18,8 +19,12 @@ public class BuyController {
     }
 
     @PostMapping("buy")
-    public ResponseEntity<String> buy(@RequestParam Long product, @RequestParam Long user, @RequestParam boolean ft) {
-        return ResponseEntity.ok(service.buy(product, user, ft));
+    public ResponseEntity<Void> buy(@RequestParam Long product, @RequestParam Long user, @RequestParam boolean ft) {
+        if(ft) {
+            service.buyFtEnabled(product, user);
+        } else {
+            service.buyFtDisabled(product, user);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
-
 }
