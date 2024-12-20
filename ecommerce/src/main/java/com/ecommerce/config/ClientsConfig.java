@@ -1,7 +1,9 @@
 package com.ecommerce.config;
 
-import java.time.Duration;
-
+import com.ecommerce.client.ExchangeClient2;
+import com.ecommerce.client.FidelityClient2;
+import com.ecommerce.client.StoreClient;
+import com.ecommerce.client.StoreClient2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,13 +13,19 @@ import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
-import com.ecommerce.client.StoreClient;
+import java.time.Duration;
 
 @Configuration
 public class ClientsConfig {
 
     @Value("${application.store.base-uri}")
     private String storeBaseUri;
+
+    @Value("${application.exchange.base-uri}")
+    private String exchangeBaseUri;
+
+    @Value("${application.fidelity.base-uri}")
+    private String fidelityBaseUri;
 
     private ClientHttpRequestFactory getClientHttpRequestFactory() {
         HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
@@ -40,6 +48,48 @@ public class ClientsConfig {
                 .builderFor(RestClientAdapter.create(restClient(storeBaseUri)))
                 .build()
                 .createClient(StoreClient.class);
+    }
+
+    @Bean
+    StoreClient2 storeClient2() {
+        return HttpServiceProxyFactory
+            .builderFor(
+                RestClientAdapter.create(
+                    RestClient.builder()
+                        .baseUrl(storeBaseUri)
+                        .build()
+                )
+            )
+            .build()
+            .createClient(StoreClient2.class);
+    }
+
+    @Bean
+    ExchangeClient2 exchangeClient2() {
+        return HttpServiceProxyFactory
+            .builderFor(
+                RestClientAdapter.create(
+                    RestClient.builder()
+                        .baseUrl(exchangeBaseUri)
+                        .build()
+                    )
+            )
+            .build()
+            .createClient(ExchangeClient2.class);
+    }
+
+    @Bean
+    FidelityClient2 fidelityClient2() {
+        return HttpServiceProxyFactory
+            .builderFor(
+                RestClientAdapter.create(
+                    RestClient.builder()
+                        .baseUrl(fidelityBaseUri)
+                        .build()
+                )
+            )
+            .build()
+            .createClient(FidelityClient2.class);
     }
 
 }
