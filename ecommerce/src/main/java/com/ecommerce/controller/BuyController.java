@@ -19,7 +19,7 @@ public class BuyController {
     }
 
     @PostMapping("buy")
-    public ResponseEntity<Void> buy(@RequestParam Long product, @RequestParam Long user, @RequestParam boolean ft) {
+    public ResponseEntity<Void> buy(@RequestParam Long product, @RequestParam Integer user, @RequestParam boolean ft) {
         if(ft) {
             service.buyFtEnabled(product, user);
         } else {

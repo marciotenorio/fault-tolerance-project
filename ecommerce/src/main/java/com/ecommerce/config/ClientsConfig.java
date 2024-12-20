@@ -11,6 +11,7 @@ import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
+import com.ecommerce.client.FidelityClient;
 import com.ecommerce.client.StoreClient;
 
 @Configuration
@@ -18,6 +19,9 @@ public class ClientsConfig {
 
     @Value("${application.store.base-uri}")
     private String storeBaseUri;
+
+    @Value("${application.fidelity.base-uri}")
+    private String fidelityBaseUri;
 
     private ClientHttpRequestFactory getClientHttpRequestFactory() {
         HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
@@ -40,6 +44,14 @@ public class ClientsConfig {
                 .builderFor(RestClientAdapter.create(restClient(storeBaseUri)))
                 .build()
                 .createClient(StoreClient.class);
+    }
+
+    @Bean
+    FidelityClient fidelityClient() {
+        return HttpServiceProxyFactory
+                .builderFor(RestClientAdapter.create(restClient(fidelityBaseUri)))
+                .build()
+                .createClient(FidelityClient.class);
     }
 
 }
