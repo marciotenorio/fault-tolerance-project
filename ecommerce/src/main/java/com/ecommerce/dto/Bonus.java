@@ -2,6 +2,11 @@ package com.ecommerce.dto;
 
 import java.math.RoundingMode;
 
+/**
+ * @author Márcio Tenório
+ * @since 10/12/2024
+ */
+
 public class Bonus {
 
     private Integer user;
