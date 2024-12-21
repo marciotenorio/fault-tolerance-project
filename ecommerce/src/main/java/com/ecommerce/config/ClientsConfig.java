@@ -1,6 +1,7 @@
 package com.ecommerce.config;
 
 import com.ecommerce.client.ExchangeClient2;
+import com.ecommerce.client.FidelityClient;
 import com.ecommerce.client.FidelityClient2;
 import com.ecommerce.client.StoreClient;
 import com.ecommerce.client.StoreClient2;
@@ -51,6 +52,13 @@ public class ClientsConfig {
     }
 
     @Bean
+    FidelityClient fidelityClient() {
+        return HttpServiceProxyFactory
+                .builderFor(RestClientAdapter.create(restClient(fidelityBaseUri)))
+                .build()
+                .createClient(FidelityClient.class);
+    }
+
     StoreClient2 storeClient2() {
         return HttpServiceProxyFactory
             .builderFor(
