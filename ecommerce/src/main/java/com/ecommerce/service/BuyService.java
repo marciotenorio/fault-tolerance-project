@@ -2,10 +2,15 @@ package com.ecommerce.service;
 
 import com.ecommerce.client.*;
 import com.ecommerce.config.BusinessException;
+import com.ecommerce.config.ServiceUnavailableException;
 import com.ecommerce.dto.Bonus;
 import com.ecommerce.dto.Product;
 import com.ecommerce.model.FailedBonusRequest;
 import com.ecommerce.repository.FailedBonusRequestRepository;
+
+import org.springframework.cloud.client.circuitbreaker.CircuitBreaker;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
+import org.springframework.cloud.client.circuitbreaker.NoFallbackAvailableException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -22,6 +27,7 @@ public class BuyService {
     private final FailedBonusRequestRepository failedBonusRequestRepository;
     private final ExchangeLocalCache exchangeLocalCache;
     private final ProductService productService;
+    private final CircuitBreakerFactory circuitBreakerFactory;
 
     public BuyService(StoreClient storeClient,
         StoreClient2 storeClient2,
@@ -31,7 +37,8 @@ public class BuyService {
         FidelityClient2 fidelityClient2,
         FailedBonusRequestRepository failedBonusRequestRepository,
         ExchangeLocalCache exchangeLocalCache,
-        ProductService productService) {
+        ProductService productService,
+        CircuitBreakerFactory circuitBreakerFactory) {
         this.storeClient = storeClient;
         this.exchangeClient = exchangeClient;
         this.fidelityClient = fidelityClient;
@@ -41,6 +48,7 @@ public class BuyService {
         this.fidelityClient2 = fidelityClient2;
         this.exchangeLocalCache = exchangeLocalCache;
         this.productService = productService;
+        this.circuitBreakerFactory = circuitBreakerFactory;
     }
 
     public String buyFtEnabled(Long productId, Integer user) {
@@ -58,7 +66,13 @@ public class BuyService {
         }
 
         // Request 3
-        String transactionId = storeClient.sell(product.getId());
+        String transactionId;
+        try {
+            CircuitBreaker circuitBreaker = circuitBreakerFactory.create("sellStoreService");
+            transactionId = circuitBreaker.run(() -> storeClient.sell(productId));
+        } catch (NoFallbackAvailableException e) {
+            throw new ServiceUnavailableException("The sales service is unavailable. Please try again in a few seconds.", e);
+        } 
 
         // Request 4
         Bonus bonus = new Bonus(user, product);
