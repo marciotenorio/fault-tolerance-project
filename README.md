@@ -5,12 +5,53 @@ Márcio Tenório Júnior\
 Maria Eduarda Elói Pereira
 
 ## Como Executar?
-//TODO
+
+A seguir, apresentamos duas formas de executar o projeto. No entanto, para garantir a implementação completa da nossa abordagem de tolerância a falhas, é necessário executar o projeto utilizando **Docker Compose**.
+
+### 1. Utilizando Docker Compose
+
+Na raiz do projeto, existe um arquivo docker-compose.yml que facilita a execução de todas as APIs. Para utilizá-lo, siga os passos abaixo:
+
+1. Certifique-se de que o Docker e o Docker Compose estão instalados na sua máquina.
+2. Navegue até a pasta raiz do projeto.
+3. Execute o seguinte comando no terminal:
+    ```
+    docker compose up -d
+    ```
+4. O Docker Compose cuidará de subir todas as APIs e dependências necessárias.
+
+A API principal, **ecommerce**, estará disponível em `http://localhost:8080`, com Swagger em `http://localhost:8080/swagger-ui/index.html`.
+
+### 2. Executando Manualmente Cada API
+
+Caso prefira ou precise rodar as APIs separadamente, você pode executá-las manualmente. O projeto contém as seguintes APIs Spring Boot localizadas em subpastas:
+- ecommerce
+- exchange
+- fidelity
+- store
+
+**Passos para executar:**
+1. Navegue até a subpasta da API que deseja executar:
+    ```
+    cd <nome-da-subpasta>
+    ```
+2. Execute o comando abaixo para compilar e iniciar a API:
+    ```
+    ./mvnw spring-boot:run
+    ```
 
 ## Estratégias Utilizadas
 
 Comentários sobre as estratégias de tolerância a falhas utilizadas no serviço **ecommerce** chamando o 
 exchange, store e fidelity para concluir o processo de compra.
+
+### Estratégias Gerais
+
+- **Timeout**: Todas as requisições realizadas pelo **ecommerce** possuem um tempo de espera (timeout) configurado de **1 segundo**. Isso garante que, caso um serviço solicitado esteja indisponível ou demore mais do que o esperado para responder, a requisição seja abortada rapidamente, evitando impactos no desempenho geral do sistema.
+  
+- **Restart**: Nos containers Docker, foi configurado o parâmetro `restart: always`. Isso significa que, caso algum container falhe ou seja interrompido por qualquer motivo, ele será reiniciado automaticamente. Esta estratégia ajuda a manter a disponibilidade do sistema, minimizando o tempo de inatividade.
+
+- **Healthcheck**: Para garantir que cada serviço está funcionando corretamente, foi configurado um **healthcheck** em todos os containers do Docker Compose. Este healthcheck verifica a integridade do serviço e, caso o serviço não esteja saudável, ele será reiniciado conforme a configuração de restart mencionada.
 
 ### /product - Fail (Omission, 0.2, 0s)
 
