@@ -1,11 +1,8 @@
 package com.ecommerce.config;
 
-import com.ecommerce.client.ExchangeClient2;
-import com.ecommerce.client.FidelityClient;
-import com.ecommerce.client.FidelityClient2;
-import com.ecommerce.client.StoreClient;
-import com.ecommerce.client.StoreClient2;
+import com.ecommerce.client.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestFactory;
@@ -43,6 +40,12 @@ public class ClientsConfig {
                 .build();
     }
 
+    @LoadBalanced
+    @Bean
+    RestClient.Builder restClientLbBuilder() {
+        return RestClient.builder();
+    }
+
     @Bean
     StoreClient storeClient() {
         return HttpServiceProxyFactory
@@ -57,6 +60,19 @@ public class ClientsConfig {
                 .builderFor(RestClientAdapter.create(restClient(fidelityBaseUri)))
                 .build()
                 .createClient(FidelityClient.class);
+    }
+
+    @Bean
+    ExchangeClient exchangeClient() {
+        RestClient restClient = restClientLbBuilder()
+                .requestFactory(getClientHttpRequestFactory())
+                .baseUrl("http://exchange")
+                .build();
+
+        return HttpServiceProxyFactory
+                .builderFor(RestClientAdapter.create(restClient))
+                .build()
+                .createClient(ExchangeClient.class);
     }
 
     @Bean
