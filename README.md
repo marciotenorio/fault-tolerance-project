@@ -107,20 +107,42 @@ controlamos retentivas até de fato conseguir concretizar o bônus.
 
 ## Onde E Como Foram Implementadas?
 
-Utilizamos Java 23, Spring Boot e Resilience4j.
+A implementação foi realizada utilizando **Java 23**, **Spring Boot** e **Resilience4j**. A seguir, detalhamos os principais pontos de implementação:
 
 - [/product](ecommerce/src/main/java/com/ecommerce/service/ProductService.java) - 
 Aqui foi simulado um Hot Cache com um array, mas em um cenário real poderia usar um redis 
 com a mesma ideia de ser inicializado com os produtos mais pesquisados.
-- [/exchange](ecommerce/src/main/java/com/ecommerce/service/BuyService.java#51) 
-- [/sell](ecommerce/src/main/java/com/ecommerce/service/BuyService.java#60)
-- [/bonus](ecommerce/src/main/java/com/ecommerce/service/BuyService.java#63)
+- [/exchange](ecommerce/src/main/java/com/ecommerce/service/BuyService.java#L63-L64) - Aqui foi implementada a tentativa de **obter o cache local** do último valor de conversão do câmbio.
+- [/sell](ecommerce/src/main/java/com/ecommerce/service/BuyService.java#L70-L71) - Aqui foi utilizado o **Circuit Breaker** para gerenciar falhas na requisição de venda. Caso ocorra um erro, o sistema falha rapidamente, evitando que requisições subsequentes sobrecarreguem o sistema.
+- [/bonus](ecommerce/src/main/java/com/ecommerce/jobs/RetryRequestBonusJob.java) - Aqui foi criada uma **tarefa agendada** para processar as requisições de aplicação do bônus que falharam.
 
 ## Limitações
-//TODO
+
+Apesar das estratégias de tolerância a falhas implementadas, existem algumas limitações que precisam ser consideradas para garantir um funcionamento adequado do sistema:
+
+- **Inconsistência de Dados no Cache**: O produto pode ficar defasado se a requisição para obter o produto por ID no serviço **store** falhar e o sistema utilizar os dados do cache por um longo período. Isso pode gerar inconsistência entre os dados em cache e o banco de dados real. O mesmo problema ocorre no serviço **exchange**, onde a conversão de câmbio pode ser baseada em dados desatualizados se a requisição à API de câmbio falhar e o cache for utilizado. Também, é necessário implementar uma estratégia de invalidação ou expiração do cache para evitar manter os dados em cache (desatualizados) indefinidamente.
+
+- **Acúmulo de Processamento no Fidelity**: O **serviço de fidelity** pode acumular um grande volume de processamento durante o intervalo de 30 segundos de downtime, caso uma requisição falhe e precise ser reprocessada. Para evitar sobrecarga, seria necessário ajustar a frequência ou lógica de retry, ou considerar dividir o processamento de maneira mais eficiente.
+
+- **Cuidado com o Retry**: A estratégia de **retry** deve ser usada com cautela para evitar sobrecarregar o serviço de destino. Muitos retries seguidos em caso de falhas podem resultar em um estresse significativo para o serviço chamado, especialmente se ele estiver sobrecarregado ou instável.
+
+- **Falhas no Fail Fast do /sell**: O endpoint **/sell** utiliza a abordagem de **fail fast**, o que pode resultar em muitas falhas se o serviço de destino estiver temporariamente indisponível. Embora isso ajude a evitar a sobrecarga, é necessário equilibrar essa estratégia para não afetar a experiência do usuário, implementando uma redundância com mecanismo de retry ou fallback para a instância disponível.
+
+- **Problemas com o Load Balancing**: O **load balancing** está configurado com a estratégia **round-robin**, o que pode fazer com que o tráfego seja direcionado para instâncias que estão inativas ou falharam. Para mitigar isso, seria necessário configurar um **healthcheck** adequado no load balancer para garantir que apenas instâncias saudáveis recebam requisições.
 
 ## Abordagens Alternativas
-//TODO
+
+- **Cache Distribuído em vez de Hot Cache Simulado**: 
+  - **Solução Atual**: Utilizamos um array para simular um **Hot Cache** de produtos. 
+  - **Abordagem Alternativa**: Em vez de usar um cache simples na memória, poderia ser adotado um **cache distribuído**, como o **Redis**, para armazenar os produtos mais acessados. Isso garantiria alta disponibilidade e escalabilidade, já que o Redis pode ser configurado para persistir dados entre reinicializações e ser compartilhado entre múltiplos serviços.
+
+- **Utilização de Filas para Processamento Assíncrono no Fidelity**:
+  - **Solução Atual**: Temos uma tarefa agendada para executar aplicações de bônus que falharam, e pode acumular bastante carga durante o downtime do **fidelity**. 
+  - **Abordagem Alternativa**: Uma alternativa seria utilizar **filas de mensagens** (como RabbitMQ ou Kafka) para realizar o processamento de forma desacoplada.
+
+- **Configuração de Load Balancer com Healthcheck Avançado**:
+  - **Solução Atual**: O balanceador de carga utiliza **round-robin** para distribuir o tráfego.
+  - **Abordagem Alternativa**: Uma abordagem mais robusta seria configurar o **load balancer** com um **healthcheck avançado**, que verifica a disponibilidade das instâncias, a performance e a carga das mesmas. Isso garantiria que o tráfego fosse direcionado apenas para instâncias que estivessem ativas e operando dentro dos parâmetros de desempenho esperados.
 
 ## Vídeo
 //TODO
