@@ -1,7 +1,6 @@
 package com.ecommerce.service;
 
 import com.ecommerce.client.*;
-import com.ecommerce.config.BusinessException;
 import com.ecommerce.config.ServiceUnavailableException;
 import com.ecommerce.dto.Bonus;
 import com.ecommerce.dto.Product;
@@ -61,7 +60,7 @@ public class BuyService {
             coinValue = exchangeClient.exchange();
             exchangeLocalCache.saveValue(coinValue);
         } catch (Exception e) {
-            coinValue = exchangeLocalCache.getLastValue().orElseThrow(() -> new BusinessException(
+            coinValue = exchangeLocalCache.getLastValue().orElseThrow(() -> new ServiceUnavailableException(
                     "Unable to retrieve the currency conversion value at the moment. Please try again later."));
         }
 
