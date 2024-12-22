@@ -59,6 +59,7 @@ public class ClientsConfig {
                 .createClient(FidelityClient.class);
     }
 
+    @Bean
     StoreClient2 storeClient2() {
         return HttpServiceProxyFactory
             .builderFor(
