@@ -14,8 +14,8 @@ services:
       TZ: "America/Fortaleza"
     restart: always
     healthcheck:
-      # test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/actuator/health"]
-      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/swagger-ui.html"]
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/actuator/health"]
+      # test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/swagger-ui.html"]
       interval: 10s
       timeout: 3s
       retries: 60
