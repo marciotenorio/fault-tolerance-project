@@ -40,6 +40,10 @@ Caso prefira ou precise rodar as APIs separadamente, você pode executá-las man
     ./mvnw spring-boot:run
     ```
 
+## Visão Geral
+
+![overview](./fault-tolerance-trab1-overview.jpg)
+
 ## Estratégias Utilizadas
 
 Comentários sobre as estratégias de tolerância a falhas utilizadas no serviço **ecommerce** chamando o 
