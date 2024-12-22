@@ -1,11 +1,6 @@
 package com.ecommerce.config;
 
-import com.ecommerce.client.ExchangeClient;
-import com.ecommerce.client.ExchangeClient2;
-import com.ecommerce.client.FidelityClient;
-import com.ecommerce.client.FidelityClient2;
-import com.ecommerce.client.StoreClient;
-import com.ecommerce.client.StoreClient2;
+import com.ecommerce.client.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;

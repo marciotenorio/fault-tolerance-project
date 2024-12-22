@@ -1,35 +1,37 @@
 package com.ecommerce.service;
 
-import com.ecommerce.client.ExchangeClient;
-import com.ecommerce.client.ExchangeClient2;
-import com.ecommerce.client.FidelityClient;
-import com.ecommerce.client.FidelityClient2;
-import com.ecommerce.client.StoreClient;
-import com.ecommerce.client.StoreClient2;
+import com.ecommerce.client.*;
 import com.ecommerce.config.BusinessException;
 import com.ecommerce.dto.Bonus;
 import com.ecommerce.dto.Product;
-import org.springframework.stereotype.Service;
-
 import com.ecommerce.model.FailedBonusRequest;
 import com.ecommerce.repository.FailedBonusRequestRepository;
+import org.springframework.stereotype.Service;
+
 import java.math.BigDecimal;
 
 @Service
 public class BuyService {
 
     private final StoreClient storeClient;
-    private final ExchangeClient exchangeClient;
-    private final FidelityClient fidelityClient;
-    private final FailedBonusRequestRepository failedBonusRequestRepository;
     private final StoreClient2 storeClient2;
+    private final ExchangeClient exchangeClient;
     private final ExchangeClient2 exchangeClient2;
+    private final FidelityClient fidelityClient;
     private final FidelityClient2 fidelityClient2;
+    private final FailedBonusRequestRepository failedBonusRequestRepository;
     private final ExchangeLocalCache exchangeLocalCache;
+    private final ProductService productService;
 
-    public BuyService(StoreClient storeClient, ExchangeClient exchangeClient, FidelityClient fidelityClient,
-            FailedBonusRequestRepository failedBonusRequestRepository, StoreClient2 storeClient2,
-            ExchangeClient2 exchangeClient2, FidelityClient2 fidelityClient2, ExchangeLocalCache exchangeLocalCache) {
+    public BuyService(StoreClient storeClient,
+        StoreClient2 storeClient2,
+        ExchangeClient exchangeClient,
+        ExchangeClient2 exchangeClient2,
+        FidelityClient fidelityClient,
+        FidelityClient2 fidelityClient2,
+        FailedBonusRequestRepository failedBonusRequestRepository,
+        ExchangeLocalCache exchangeLocalCache,
+        ProductService productService) {
         this.storeClient = storeClient;
         this.exchangeClient = exchangeClient;
         this.fidelityClient = fidelityClient;
@@ -38,11 +40,12 @@ public class BuyService {
         this.exchangeClient2 = exchangeClient2;
         this.fidelityClient2 = fidelityClient2;
         this.exchangeLocalCache = exchangeLocalCache;
+        this.productService = productService;
     }
 
     public String buyFtEnabled(Long productId, Integer user) {
         // Request 1
-        Product product = storeClient.getById(productId);
+        Product product = productService.getById(productId);
 
         // Request 2
         BigDecimal coinValue;

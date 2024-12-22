@@ -10,6 +10,14 @@ public class Product {
 
     private BigDecimal value;
 
+    public Product() {}
+
+    public Product(Long id, String name, BigDecimal value) {
+        this.id = id;
+        this.name = name;
+        this.value = value;
+    }
+
     public Long getId() {
         return id;
     }
