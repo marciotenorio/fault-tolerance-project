@@ -149,4 +149,5 @@ Apesar das estratégias de tolerância a falhas implementadas, existem algumas l
   - **Abordagem Alternativa**: Uma abordagem mais robusta seria configurar o **load balancer** com um **healthcheck avançado**, que verifica a disponibilidade das instâncias, a performance e a carga das mesmas. Isso garantiria que o tráfego fosse direcionado apenas para instâncias que estivessem ativas e operando dentro dos parâmetros de desempenho esperados.
 
 ## Vídeo
-//TODO
+
+[Vídeo no Youtube](https://youtu.be/5FnmNiePDaQ)
