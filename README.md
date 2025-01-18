@@ -148,5 +148,30 @@ Apesar das estratégias de tolerância a falhas implementadas, existem algumas l
   - **Solução Atual**: O balanceador de carga utiliza **round-robin** para distribuir o tráfego.
   - **Abordagem Alternativa**: Uma abordagem mais robusta seria configurar o **load balancer** com um **healthcheck avançado**, que verifica a disponibilidade das instâncias, a performance e a carga das mesmas. Isso garantiria que o tráfego fosse direcionado apenas para instâncias que estivessem ativas e operando dentro dos parâmetros de desempenho esperados.
 
-## Vídeo
-//TODO
+## Testes - Desempenho e Disponibilidade
+
+### Descrição Sobre o Sistema - Ja ta feito
+Caso seja possível, descreva a arquitetura
+do sistema e as tecnologias utilizadas (linguagem de programação, banco de dados,
+etc.)
+
+### Cenários
+
+Pensei em
+- "Happy Path" com tudo up
+- Exchange e Fidelity off
+
+### Planejamento dos Testes
+
+- Execute pelo menos 2 tipos de testes de desempenho diferentes (Ver material
+das Aulas de Desempenho e Disponibilidade)
+- Descreva as métricas de Desempenho que serão analisadas e como elas serão
+calculadas
+- Descreva as métricas de Disponibilidade que serão analisadas e como elas
+serão calculadas
+
+### Resultados da Análise
+
+- Informações do ambiente de execução
+- Apresentação dos valores das medições para os diferentes tipos de testes
+- Interpretação dos resultados
