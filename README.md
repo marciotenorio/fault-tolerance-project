@@ -148,7 +148,12 @@ Apesar das estratégias de tolerância a falhas implementadas, existem algumas l
   - **Solução Atual**: O balanceador de carga utiliza **round-robin** para distribuir o tráfego.
   - **Abordagem Alternativa**: Uma abordagem mais robusta seria configurar o **load balancer** com um **healthcheck avançado**, que verifica a disponibilidade das instâncias, a performance e a carga das mesmas. Isso garantiria que o tráfego fosse direcionado apenas para instâncias que estivessem ativas e operando dentro dos parâmetros de desempenho esperados.
 
-## Testes - Desempenho e Disponibilidade
+## Vídeo
+
+[Vídeo no Youtube](https://youtu.be/5FnmNiePDaQ)
+
+
+## Testes - Desempenho e Disponibilidade - WIP
 
 ### Descrição Sobre o Sistema - Ja ta feito
 Caso seja possível, descreva a arquitetura
