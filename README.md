@@ -155,6 +155,10 @@ Apesar das estratégias de tolerância a falhas implementadas, existem algumas l
 
 ## Testes - Desempenho e Disponibilidade - WIP
 
+## TODO
+- Definir cenários, stages e ver vazão que a aplicação suporta (10, 1000, 10000, etc)
+- Ver se consegue rodar todos os cenários juntos
+
 ### Descrição Sobre o Sistema - Ja ta feito
 Caso seja possível, descreva a arquitetura
 do sistema e as tecnologias utilizadas (linguagem de programação, banco de dados,
@@ -164,7 +168,7 @@ etc.)
 
 Pensei em
 - "Happy Path" com tudo up
-- Exchange e Fidelity off
+- Exchange(somente uma instância) e Fidelity off
 
 ### Planejamento dos Testes
 
