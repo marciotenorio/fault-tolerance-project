@@ -111,7 +111,7 @@ controlamos retentivas até de fato conseguir concretizar o bônus.
 
 ## Onde E Como Foram Implementadas?
 
-A implementação foi realizada utilizando **Java 23**, **Spring Boot** e **Resilience4j**. A seguir, detalhamos os principais pontos de implementação:
+A implementação foi realizada utilizando **Java 23**, **Spring Boot**, **banco em memória (H2)** e **Resilience4j**. A seguir, detalhamos os principais pontos de implementação:
 
 - [/product](ecommerce/src/main/java/com/ecommerce/service/ProductService.java) - 
 Aqui foi simulado um Hot Cache com um array, mas em um cenário real poderia usar um redis 
@@ -155,32 +155,44 @@ Apesar das estratégias de tolerância a falhas implementadas, existem algumas l
 
 ## Testes - Desempenho e Disponibilidade - WIP
 
-## TODO
-- Definir cenários, stages e ver vazão que a aplicação suporta (10, 1000, 10000, etc)
-- Ver se consegue rodar todos os cenários juntos
+### Descrição Sobre o Sistema
 
-### Descrição Sobre o Sistema - Ja ta feito
-Caso seja possível, descreva a arquitetura
-do sistema e as tecnologias utilizadas (linguagem de programação, banco de dados,
-etc.)
-
-### Cenários
-
-Pensei em
-- "Happy Path" com tudo up
-- Exchange(somente uma instância) e Fidelity off
+- [Visão Geral da arquitetura](#visão-geral)
+- [Tecnologias utilizadas](#onde-e-como-foram-implementadas)
 
 ### Planejamento dos Testes
 
-- Execute pelo menos 2 tipos de testes de desempenho diferentes (Ver material
-das Aulas de Desempenho e Disponibilidade)
-- Descreva as métricas de Desempenho que serão analisadas e como elas serão
-calculadas
-- Descreva as métricas de Disponibilidade que serão analisadas e como elas
-serão calculadas
+As métricas no geral foram obtidas utilizando a ferramenta [k6](https://k6.io/) e com base em cenários 
+que achamos relevantes com relação a arquitetura existente.
 
-### Resultados da Análise
+#### Teste de Disponibilidade
 
-- Informações do ambiente de execução
+- Requisições por segundo: taxa de requisições respondidas (sucesso ou falha) dentro de um segundo.
+  - Ex: 10/s
+- Duração de requisição (P95%): Indica que 95% das requisições são mais rápidas do que o valor fornecido.
+  - 500ms
+
+#### Teste de Disponibilidade
+
+- Tempo médio entre cada falha: média feita entre todas as falhas obtidas no teste.
+  - 10/s
+
+
+#### Cenários
+
+- "Happy Path" - tudo funcionamento perfeitamente desde o início:
+
 - Apresentação dos valores das medições para os diferentes tipos de testes
 - Interpretação dos resultados
+  
+- ``Exchange`` com somente uma instância e o serviço ``Fidelity`` offline:
+
+- Apresentação dos valores das medições para os diferentes tipos de testes
+- Interpretação dos resultados
+
+### Considerações Finais
+
+- Resumo sobre resultados
+- Maiores desafios
+- Possiveis melhorias
+- Conclusão do experimento
