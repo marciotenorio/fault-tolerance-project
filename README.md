@@ -409,7 +409,7 @@ Durante os testes, foi simulada uma pausa entre as requisições para refletir o
 
 - Mesmo com a tolerância a falhas ativa, o sistema não consegue manter uma performance estável sob carga elevada. Observamos que os tempos de resposta e as taxas de erro aumentam substancialmente à medida que o número de VUs cresce. Esse comportamento pode ser atribuído à indisponibilidade do serviço Store na rota sell, que apresenta uma probabilidade de falha de 10% e é acionado duas vezes nesse caso de uso, sendo uma API crítica para a conclusão do mesmo. Além disso, o mecanismo de tolerância a falhas adotado (apenas o circuit breaker) não é suficiente para evitar falhas em grande escala, especialmente com o alto volume de requisições paralelas. Isso resulta em uma maior probabilidade de erro, comprometendo a estabilidade e a performance do sistema sob carga.
 
-- o ponto de vista do tempo médio entre falhas, a tolerância a falhas ativa resulta em uma melhoria na disponibilidade em relação à tolerância a falhas inativa, uma vez que proporciona intervalos mais longos entre as falhas. 
+- O ponto de vista do tempo médio entre falhas, a tolerância a falhas ativa resulta em uma melhoria na disponibilidade em relação à tolerância a falhas inativa, uma vez que proporciona intervalos mais longos entre as falhas. 
 
 ### Considerações Finais
 
@@ -417,8 +417,9 @@ Durante os testes, foi simulada uma pausa entre as requisições para refletir o
 O maior desafio foi lidar com os gargalos, criando estratégias que combinadas aumentam a chance de cumprir o caso de uso com um bom tempo de resposta e sem falhas. Percebemos que muitas estratégias devem ser combinadas (aplicação e infraestrutura) para alcançar o seu potencial máximo e não a estratégia em si sobrecarregue ou a próprio sistema.
 
 #### Possíveis Melhorias
-Tolerância a nível de infraestrutura com Failover, estratégias de restart automático dos containers
-Limites para tempo de requisições combinado, contribuindo para fail fast.
+Tolerância a nível de infraestrutura com ``failover``, estratégias de restart automático dos containers e identificação de sobrecarga nos containers para um escalabilidade horizontal.
+
+Limites para tempo de requisições para API's externas, combinado com healthcheck/watchdog de infraestrutura contribuindo para ``failt fast`` e provisionamento de novas instâncias para dividir a carga.
 
 #### Conclusão
 Estratégias de tolerância a falhas e testes (integração, carga, etc) são estratégias essenciais para entregar software de qualidade que atenda de fato as necessidades do cliente.
