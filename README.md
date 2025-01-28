@@ -309,14 +309,6 @@ Durante os testes, foi simulada uma pausa entre as requisições para refletir o
   </tr>
 </table>
 <br/>
-
-#### Interpretação Dos Resultados
-
-- A tolerância a falhas ativa resulta em uma redução significativa na taxa de erro em comparação com a tolerância a falhas inativa. No entanto, o desempenho do sistema ainda se deteriora à medida que o número de VUs aumenta, o que é provavelmente causado pelo tempo adicional necessário para os mecanismos de tolerância a falhas, como retries e outras tentativas de recuperação. Esses processos adicionam latência, o que impacta a performance global do sistema sob carga elevada. Um observação importante é que foi feito um _tradeoff_ entre sucesso das requisições e tempo médio de resposta, devido aos mecanismos de tolerância empregados como: retry, circuit breaker, etc.
-
-- Mesmo com a tolerância a falhas ativa, o sistema não consegue manter uma performance estável sob carga elevada. Observamos que os tempos de resposta e as taxas de erro aumentam substancialmente à medida que o número de VUs cresce. Esse comportamento pode ser atribuído à indisponibilidade do serviço Store na rota sell, que apresenta uma probabilidade de falha de 10% e é acionado duas vezes nesse caso de uso, sendo uma API crítica para a conclusão do mesmo. Além disso, o mecanismo de tolerância a falhas adotado (apenas o circuit breaker) não é suficiente para evitar falhas em grande escala, especialmente com o alto volume de requisições paralelas. Isso resulta em uma maior probabilidade de erro, comprometendo a estabilidade e a performance do sistema sob carga.
-
-- o ponto de vista do tempo médio entre falhas, a tolerância a falhas ativa resulta em uma melhoria na disponibilidade em relação à tolerância a falhas inativa, uma vez que proporciona intervalos mais longos entre as falhas. 
   
 #### Cenário B: ``Exchange`` com somente uma instância e o serviço ``Fidelity`` offline
 
@@ -410,6 +402,14 @@ Durante os testes, foi simulada uma pausa entre as requisições para refletir o
   </tr>
 </table>
 <br/>
+
+#### Interpretação Dos Resultados
+
+- A tolerância a falhas ativa resulta em uma redução significativa na taxa de erro em comparação com a tolerância a falhas inativa. No entanto, o desempenho do sistema ainda se deteriora à medida que o número de VUs aumenta, o que é provavelmente causado pelo tempo adicional necessário para os mecanismos de tolerância a falhas, como retries e outras tentativas de recuperação. Esses processos adicionam latência, o que impacta a performance global do sistema sob carga elevada. Um observação importante é que foi feito um _tradeoff_ entre sucesso das requisições e tempo médio de resposta, devido aos mecanismos de tolerância empregados como: retry, circuit breaker, etc.
+
+- Mesmo com a tolerância a falhas ativa, o sistema não consegue manter uma performance estável sob carga elevada. Observamos que os tempos de resposta e as taxas de erro aumentam substancialmente à medida que o número de VUs cresce. Esse comportamento pode ser atribuído à indisponibilidade do serviço Store na rota sell, que apresenta uma probabilidade de falha de 10% e é acionado duas vezes nesse caso de uso, sendo uma API crítica para a conclusão do mesmo. Além disso, o mecanismo de tolerância a falhas adotado (apenas o circuit breaker) não é suficiente para evitar falhas em grande escala, especialmente com o alto volume de requisições paralelas. Isso resulta em uma maior probabilidade de erro, comprometendo a estabilidade e a performance do sistema sob carga.
+
+- o ponto de vista do tempo médio entre falhas, a tolerância a falhas ativa resulta em uma melhoria na disponibilidade em relação à tolerância a falhas inativa, uma vez que proporciona intervalos mais longos entre as falhas. 
 
 ### Considerações Finais
 
