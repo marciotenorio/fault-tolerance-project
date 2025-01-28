@@ -160,6 +160,17 @@ Apesar das estratégias de tolerância a falhas implementadas, existem algumas l
 - [Visão Geral da arquitetura](#visão-geral)
 - [Tecnologias utilizadas](#onde-e-como-foram-implementadas)
 
+#### Ambiente de Execução
+
+Os testes foram executados localmente em um computador pessoal com as seguintes especificações técnicas:
+
+- **Modelo:** Samsung Book
+- **Processador:** Intel Core i5-1135G7 (11ª geração)
+- **Memória RAM:** 16 GB
+- **Sistema Operacional:** Windows 11 Home
+
+Além disso, todo o projeto foi executado em um ambiente Docker. Todas as dependências e serviços do sistema foram gerenciados utilizando Docker Compose e Docker Desktop.
+
 ### Planejamento dos Testes
 
 As métricas no geral foram obtidas utilizando a ferramenta [k6](https://k6.io/) e com base em cenários 
@@ -177,6 +188,32 @@ que achamos relevantes com relação a arquitetura existente.
 - Tempo médio entre cada falha: média feita entre todas as falhas obtidas no teste.
   - 10/s
 
+#### Metodologia de Testes
+
+O teste simulou requisições POST para a rota ``buy`` do **e-commerce**, representando operações de compra realizadas por usuários no sistema.
+
+##### Stages Configurados
+
+Os testes de carga foram planejados utilizando stages no k6. A configuração dos stages foi realizada da seguinte forma:
+
+- Stage 1 - Ramp-up:
+
+    **Duração:** 30 segundos.
+
+    **Objetivo:** Aumentar gradualmente o número de usuários virtuais (Virtual Users - VUs) de 0 até o valor-alvo configurado (target).
+
+- Stage 2 - Stable:
+
+    **Duração:** 1 minuto.
+
+    **Objetivo:** Manter o número de VUs estável no valor-alvo configurado, simulando um cenário contínuo de carga.
+
+Esses stages foram executados variando o número VUs (target) em: 10 VUs, 100 VUs e 1000 VUs.
+
+##### Simulação do Comportamento do Usuário
+
+**Think Time:**
+Durante os testes, foi simulada uma pausa entre as requisições para refletir o comportamento real dos usuários. O tempo de espera (*think time*) foi configurado para variar aleatoriamente entre 1 segundo e 4 segundos.
 
 ### Cenários
 
