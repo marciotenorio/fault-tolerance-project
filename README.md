@@ -242,33 +242,33 @@ Durante os testes, foi simulada uma pausa entre as requisições para refletir o
     <td>3.11</td>
     <td>182.95ms</td>
     <td>1s</td>
-    <td>0.96</td>
+    <td>96</td>
     <td>2.52</td>
     <td>760.59ms</td>
     <td>2.51s</td>
-    <td>0.56</td>
+    <td>56</td>
   </tr>
   <tr>
     <td>100</td>
     <td>25.29</td>
     <td>738.58ms</td>
     <td>1.8s</td>
-    <td>0.99</td>
+    <td>99</td>
     <td>20.59</td>
     <td>1.41s</td>
     <td>3.37s</td>
-    <td>0.92</td>
+    <td>92</td>
   </tr>
   <tr>
     <td>1000</td>
     <td>170.07</td>
     <td>2.21s</td>
     <td>2.84s</td>
-    <td>1</td>
+    <td>100</td>
     <td>75.02</td>
     <td>7.91s</td>
     <td>10.48s</td>
-    <td>0.96</td>
+    <td>96</td>
   </tr>
 </table>
 <br/>
@@ -337,33 +337,33 @@ Durante os testes, foi simulada uma pausa entre as requisições para refletir o
     <td>2.88</td>
     <td>409.42ms</td>
     <td>1s</td>
-    <td>1</td>
+    <td>100</td>
     <td>2.31</td>
     <td>1.07s</td>
     <td>4.85s</td>
-    <td>0.78</td>
+    <td>78</td>
   </tr>
   <tr>
     <td>100</td>
     <td>24.39</td>
     <td>821.56ms</td>
     <td>1.8s</td>
-    <td>1</td>
+    <td>100</td>
     <td>18.45</td>
     <td>1.85s</td>
     <td>4.15s</td>
-    <td>0.91</td>
+    <td>91</td>
   </tr>
   <tr>
     <td>1000</td>
     <td>168.49</td>
     <td>2.22s</td>
     <td>2.84s</td>
-    <td>1</td>
+    <td>100</td>
     <td>70.80</td>
     <td>8.31s</td>
     <td>10.78s</td>
-    <td>0.97</td>
+    <td>97</td>
   </tr>
 </table>
 <br/>
