@@ -178,21 +178,210 @@ que achamos relevantes com relação a arquitetura existente.
   - 10/s
 
 
-#### Cenários
+### Cenários
 
-- "Happy Path" - tudo funcionamento perfeitamente desde o início:
+#### Cenário A: "Happy Path" - tudo funcionamento perfeitamente desde o início
 
-- Apresentação dos valores das medições para os diferentes tipos de testes
+<table>
+  <legend>Desempenho: Cenário A - "Happy Path"</legend>
+  <tr>
+    <th></th>
+    <th colspan="4">Tolerância a Falhas Inativa</th>
+    <th colspan="4">Tolerância a Falhas Ativa</th>
+  </tr>
+  <tr>
+    <td><strong>VUs</strong></td>
+    <td><strong>Req/s</strong></td>
+    <td><strong>Tempo Médio</strong></td>
+    <td><strong>P(95)</strong></td>
+    <td><strong>Taxa de Erro (%)</strong></td>
+    <td><strong>Req/s</strong></td>
+    <td><strong>Tempo Médio</strong></td>
+    <td><strong>P(95)</strong></td>
+    <td><strong>Taxa de Erro (%)</strong></td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td>3.11</td>
+    <td>182.95ms</td>
+    <td>1s</td>
+    <td>0.96</td>
+    <td>2.52</td>
+    <td>760.59ms</td>
+    <td>2.51s</td>
+    <td>0.56</td>
+  </tr>
+  <tr>
+    <td>100</td>
+    <td>25.29</td>
+    <td>738.58ms</td>
+    <td>1.8s</td>
+    <td>0.99</td>
+    <td>20.59</td>
+    <td>1.41s</td>
+    <td>3.37s</td>
+    <td>0.92</td>
+  </tr>
+  <tr>
+    <td>1000</td>
+    <td>170.07</td>
+    <td>2.21s</td>
+    <td>2.84s</td>
+    <td>1</td>
+    <td>75.02</td>
+    <td>7.91s</td>
+    <td>10.48s</td>
+    <td>0.96</td>
+  </tr>
+</table>
+<br/>
+<table>
+  <legend>Disponibilidade: Cenário A - "Happy Path"</legend>
+  <tr>
+    <th></th>
+    <th colspan="2">Tolerância a Falhas Inativa</th>
+    <th colspan="2">Tolerância a Falhas Ativa</th>
+  </tr>
+  <tr>
+    <td><strong>VUs</strong></td>
+    <td><strong>Tempo Médio entre Falhas</strong></td>
+    <td><strong>P(95)</strong></td>
+    <td><strong>Tempo Médio entre Falhas</strong></td>
+    <td><strong>P(95)</strong></td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td>2.71s</td>
+    <td>4.45s</td>
+    <td>5.68s</td>
+    <td>14.14s</td>
+  </tr>
+  <tr>
+    <td>100</td>
+    <td>3.22s</td>
+    <td>4.93s</td>
+    <td>4.17s</td>
+    <td>7.7s</td>
+  </tr>
+  <tr>
+    <td>1000</td>
+    <td>4.77s</td>
+    <td>6.18s</td>
+    <td>11.22s</td>
+    <td>13.77s</td>
+  </tr>
+</table>
+<br/>
+
 - Interpretação dos resultados
   
-- ``Exchange`` com somente uma instância e o serviço ``Fidelity`` offline:
+#### Cenário B: ``Exchange`` com somente uma instância e o serviço ``Fidelity`` offline
 
-- Apresentação dos valores das medições para os diferentes tipos de testes
+<table>
+  <legend>Desempenho: Cenário B - "1 instância Exchange e Fidelity offline"</legend>
+  <tr>
+    <th></th>
+    <th colspan="4">Tolerância a Falhas Inativa</th>
+    <th colspan="4">Tolerância a Falhas Ativa</th>
+  </tr>
+  <tr>
+    <td><strong>VUs</strong></td>
+    <td><strong>Req/s</strong></td>
+    <td><strong>Tempo Médio</strong></td>
+    <td><strong>P(95)</strong></td>
+    <td><strong>Taxa de Erro (%)</strong></td>
+    <td><strong>Req/s</strong></td>
+    <td><strong>Tempo Médio</strong></td>
+    <td><strong>P(95)</strong></td>
+    <td><strong>Taxa de Erro (%)</strong></td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td>2.88</td>
+    <td>409.42ms</td>
+    <td>1s</td>
+    <td>1</td>
+    <td>2.31</td>
+    <td>1.07s</td>
+    <td>4.85s</td>
+    <td>0.78</td>
+  </tr>
+  <tr>
+    <td>100</td>
+    <td>24.39</td>
+    <td>821.56ms</td>
+    <td>1.8s</td>
+    <td>1</td>
+    <td>18.45</td>
+    <td>1.85s</td>
+    <td>4.15s</td>
+    <td>0.91</td>
+  </tr>
+  <tr>
+    <td>1000</td>
+    <td>168.49</td>
+    <td>2.22s</td>
+    <td>2.84s</td>
+    <td>1</td>
+    <td>70.80</td>
+    <td>8.31s</td>
+    <td>10.78s</td>
+    <td>0.97</td>
+  </tr>
+</table>
+<br/>
+<table>
+  <legend>Disponibilidade: Cenário B - "1 instância Exchange e Fidelity offline"</legend>
+  <tr>
+    <th></th>
+    <th colspan="2">Tolerância a Falhas Inativa</th>
+    <th colspan="2">Tolerância a Falhas Ativa</th>
+  </tr>
+  <tr>
+    <td><strong>VUs</strong></td>
+    <td><strong>Tempo Médio entre Falhas</strong></td>
+    <td><strong>P(95)</strong></td>
+    <td><strong>Tempo Médio entre Falhas</strong></td>
+    <td><strong>P(95)</strong></td>
+  </tr>
+  <tr>
+    <td>10</td>
+    <td>2.84s</td>
+    <td>4.52s</td>
+    <td>4.3s</td>
+    <td>10.43s</td>
+  </tr>
+  <tr>
+    <td>100</td>
+    <td>3.33s</td>
+    <td>4.87s</td>
+    <td>4.78s</td>
+    <td>8.7s</td>
+  </tr>
+  <tr>
+    <td>1000</td>
+    <td>4.79s</td>
+    <td>6.2s</td>
+    <td>11.58s</td>
+    <td>14.13s</td>
+  </tr>
+</table>
+<br/>
+
 - Interpretação dos resultados
 
 ### Considerações Finais
 
-- Resumo sobre resultados
-- Maiores desafios
-- Possiveis melhorias
-- Conclusão do experimento
+#### Desafios
+O maior desafio foi lidar com os gargalos, criando estratégias que combinadas AUMENTAM a chance de cumprir o caso de uso com um bom tempo de resposta e sem falhas. Percebemos que muitas estratégias devem ser combinadas (aplicação e infraestrutura) para alcançar o seu potencial máximo e não a estratégia em si sobrecarregue ou a próprio sistema.
+
+#### Possíveis Melhorias
+Tolerância a nível de infraestrutura com Failover, estratégias de restart automático dos containers
+Limites para tempo de requisições combinado, contribuindo para fail fast.
+
+#### Conclusão
+Estratégias de tolerância a falhas e testes (integração, carga, etc) são estratégias essenciais para entregar software de qualidade que atenda de fato as necessidades do cliente.
+
+Tolerância ajuda para uma melhora geral de disponibilidade e desempenho. Já os testes corroboram ou dão indícios se as estratégias são corretas, se complementam ou são mutualmente exclusivas.
+
+Abordagens de healthcheck, watchdog, etc entre outras são cruciais para manter as estratégias de tolerância a falhas consistentes a nível de aplicação e contribuir para sucesso nas requisições dos serviços providos pelo sistema.

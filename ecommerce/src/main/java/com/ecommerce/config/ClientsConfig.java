@@ -78,13 +78,7 @@ public class ClientsConfig {
     @Bean
     StoreClient2 storeClient2() {
         return HttpServiceProxyFactory
-            .builderFor(
-                RestClientAdapter.create(
-                    RestClient.builder()
-                        .baseUrl(storeBaseUri)
-                        .build()
-                )
-            )
+            .builderFor(RestClientAdapter.create(restClient(storeBaseUri)))
             .build()
             .createClient(StoreClient2.class);
     }
@@ -92,13 +86,7 @@ public class ClientsConfig {
     @Bean
     ExchangeClient2 exchangeClient2() {
         return HttpServiceProxyFactory
-            .builderFor(
-                RestClientAdapter.create(
-                    RestClient.builder()
-                        .baseUrl(exchangeBaseUri)
-                        .build()
-                    )
-            )
+            .builderFor(RestClientAdapter.create(restClient(exchangeBaseUri)))
             .build()
             .createClient(ExchangeClient2.class);
     }
@@ -106,13 +94,7 @@ public class ClientsConfig {
     @Bean
     FidelityClient2 fidelityClient2() {
         return HttpServiceProxyFactory
-            .builderFor(
-                RestClientAdapter.create(
-                    RestClient.builder()
-                        .baseUrl(fidelityBaseUri)
-                        .build()
-                )
-            )
+            .builderFor(RestClientAdapter.create(restClient(fidelityBaseUri)))
             .build()
             .createClient(FidelityClient2.class);
     }
