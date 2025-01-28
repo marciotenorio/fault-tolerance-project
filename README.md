@@ -411,8 +411,6 @@ Durante os testes, foi simulada uma pausa entre as requisições para refletir o
 </table>
 <br/>
 
-- Interpretação dos resultados
-
 ### Considerações Finais
 
 #### Desafios
