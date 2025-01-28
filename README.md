@@ -153,7 +153,7 @@ Apesar das estratégias de tolerância a falhas implementadas, existem algumas l
 [Vídeo no Youtube](https://youtu.be/5FnmNiePDaQ)
 
 
-## Testes - Desempenho e Disponibilidade - WIP
+## Testes - Desempenho e Disponibilidade
 
 ### Descrição Sobre o Sistema
 
@@ -373,7 +373,7 @@ que achamos relevantes com relação a arquitetura existente.
 ### Considerações Finais
 
 #### Desafios
-O maior desafio foi lidar com os gargalos, criando estratégias que combinadas AUMENTAM a chance de cumprir o caso de uso com um bom tempo de resposta e sem falhas. Percebemos que muitas estratégias devem ser combinadas (aplicação e infraestrutura) para alcançar o seu potencial máximo e não a estratégia em si sobrecarregue ou a próprio sistema.
+O maior desafio foi lidar com os gargalos, criando estratégias que combinadas aumentam a chance de cumprir o caso de uso com um bom tempo de resposta e sem falhas. Percebemos que muitas estratégias devem ser combinadas (aplicação e infraestrutura) para alcançar o seu potencial máximo e não a estratégia em si sobrecarregue ou a próprio sistema.
 
 #### Possíveis Melhorias
 Tolerância a nível de infraestrutura com Failover, estratégias de restart automático dos containers
